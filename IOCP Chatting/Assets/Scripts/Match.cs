@@ -81,9 +81,17 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
 
             case E_PACKET.UPDATE_PLAYER_MOVEMENT:
                 P_UpdatePlayerMovement updateMovement = UnsafeCode.ByteArrayToStructure<P_UpdatePlayerMovement>(packet.data);
-                if (Players.TryGetValue(updateMovement.player_id, out Player player) && player != null)
+                if (Players.TryGetValue(updateMovement.player_id, out Player movPlayer) && movPlayer != null)
                 {
-                    player.Movement.Move(updateMovement.motion);
+                    movPlayer.Movement.Move(updateMovement.motion);
+                }
+                break;
+            
+            case E_PACKET.UPDATE_PLAYER_HIT:
+                P_UpdatePlayerHit updateHit = UnsafeCode.ByteArrayToStructure<P_UpdatePlayerHit>(packet.data);
+                if (Players.TryGetValue(updateHit.player_id, out Player hitPlayer) && hitPlayer != null)
+                {
+                    hitPlayer.Hp = updateHit.Hp;
                 }
                 break;
 

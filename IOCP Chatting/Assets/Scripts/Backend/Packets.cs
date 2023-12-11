@@ -27,7 +27,9 @@ public enum E_PACKET
     ROOM_CHAT_RESPONSE = 222,
     ROOM_CHAT_NOTIFY = 223, // RECEIVE_CHAT_MESSAGE
 
-    
+    // Combat
+    PLAYER_HIT = 301,
+    UPDATE_PLAYER_HIT = 302,
 }
 
 [StructLayout(LayoutKind.Sequential, Size = 16)]
@@ -162,6 +164,25 @@ struct P_UpdatePlayerMovement
 
 }
 
+[StructLayout(LayoutKind.Sequential, Size = 12)]
+struct P_PlayerHit
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long player_id;
+
+    [MarshalAs(UnmanagedType.R4)]
+    public float deltaHp;
+}
+
+[StructLayout(LayoutKind.Sequential, Size = 12)]
+struct P_UpdatePlayerHit
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long player_id;
+
+    [MarshalAs(UnmanagedType.R4)]
+    public float Hp;
+}
 
 [StructLayout(LayoutKind.Sequential, Size = 257)]
 struct P_RoomChatRequest
